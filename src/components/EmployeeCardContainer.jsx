@@ -12,13 +12,19 @@ const EmployeeCardContainer = () => {
   const [available, setAvailable] = useState("All");
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
-
   const team = useSelector((store) => store.team.members);
-
   const handleAddMember = (items) => {
     dispatch(addMember(items));
   };
 
+  // Adding Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 20;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = mockData.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(mockData.length / recordsPerPage);
+  const numbers = [...Array(npage + 1).keys()].slice(1);
   useEffect(() => {
     const newData = tempMockData.filter((emp) => {
       const isMatchingSearch =
@@ -98,7 +104,7 @@ const EmployeeCardContainer = () => {
         </select>
       </div>
       <div className="flex md:flex-row flex-wrap items-center justify-center flex-col gap-2">
-        {data.map((items) => {
+        {records.map((items) => {
           return (
             <div>
               <EmployeeCard data={items} key={items.id} />
@@ -106,7 +112,42 @@ const EmployeeCardContainer = () => {
           );
         })}
       </div>
+
+      {/*Added Pagination */}
+      <div className="flex justify-center items-center flex-row gap-20">
+        <a
+          href="#"
+          onClick={prePage}
+          className="p-5 m-5 font-bold border border-black bg-blue-400"
+        >
+          Prev
+        </a>
+        {numbers.map((n, i) => {
+          <li key={i}>
+            <a href="#" onClick={() => changeCPage(n)}></a>
+          </li>;
+        })}
+        <a
+          href="#"
+          onClick={nextPage}
+          className="p-5 m-5 font-bold border border-black bg-blue-400"
+        >
+          Next
+        </a>
+      </div>
     </div>
   );
+
+  function prePage() {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  }
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
+  function changeCPage() {}
 };
 export default EmployeeCardContainer;
