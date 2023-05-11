@@ -15,7 +15,7 @@ const teamSlice = createSlice({
     },
 
     removeMember: (state, action) => {
-      state.members.pop();
+      state.members.pop(action.payload);
     },
   },
 });

@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
-import mockData from "../utils/mockData";
-import tempMockData from "../utils/tempMockData";
+import { useDispatch } from "react-redux";
+import { addMember } from "../utils/teamSlice";
+
 const EmployeeCard = ({ data }) => {
+  const dispatch = useDispatch();
+  const handleAddMember = (data) => {
+    dispatch(addMember(data));
+  };
   return (
     <div className="border border-black md:w-[30vw] w-[90vw] m-[auto] flex flex-col items-center justify-center rounded-3xl shadow-md bg-slate-600">
       <img
@@ -15,6 +19,19 @@ const EmployeeCard = ({ data }) => {
         <h1>Gender: {data.gender}</h1>
         <h1>Domain: {data.domain}</h1>
         <h1>Available: {data.available ? <>Yes</> : <>No</>}</h1>
+        {data.available ? (
+          <button
+            className="p-2 bg-blue-400 border border-gray-100"
+            onClick={() => {
+              data.available = false;
+              handleAddMember(data);
+            }}
+          >
+            Add to team
+          </button>
+        ) : (
+          <div></div>
+        )}
       </div>
     </div>
   );

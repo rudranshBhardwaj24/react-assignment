@@ -9,7 +9,7 @@ const TeamCard = ({
   available,
 }) => {
   return (
-    <div className="border border-black md:w-[30vw] w-[90vw] m-[auto] flex flex-col items-center justify-center rounded-3xl shadow-md bg-slate-600">
+    <div className="border border-black md:w-[16vw] w-[40vw] m-[auto] flex flex-col items-center justify-center rounded-t-3xl shadow-md bg-slate-600">
       <img
         src={avatar}
         className="w-1/3 border border-black p-2 rounded-lg bg-gray-100"
