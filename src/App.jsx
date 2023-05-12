@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import Team from "./components/Team";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Body from "./components/Body";
+import Header from "./components/Header";
 
 const appRouter = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const appRouter = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
+      <Header />
       <RouterProvider router={appRouter} />
     </Provider>
   );

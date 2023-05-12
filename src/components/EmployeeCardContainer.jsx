@@ -53,54 +53,56 @@ const EmployeeCardContainer = () => {
   const availableOptions = ["All", "Yes", "No"];
   return (
     <div>
-      <div className="flex flex-row items-center justify-center">
-        <input
-          className="p-2 m-2 border border-black w-1/4 rounded-md"
-          type="text"
-          value={search}
-          placeholder="search"
-          onChange={(e) => {
-            setSearch(e.target.value);
-          }}
-        ></input>
-        <select
-          className="p-2 m-2 border border-black rounded-md"
-          value={gender}
-          onChange={(e) => {
-            setGender(e.target.value);
-          }}
-        >
-          <option value="All">All Genders</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
-        <select
-          className="p-2 m-2 border border-black rounded-md"
-          value={domain}
-          onChange={(e) => {
-            setDomain(e.target.value);
-          }}
-        >
-          <option value="All">All Domains</option>
-          {domains.map((domain) => (
-            <option key={domain} value={domain}>
-              {domain}
-            </option>
-          ))}
-        </select>
-        <select
-          className="p-2 m-2 border border-black rounded-md"
-          value={available}
-          onChange={(e) => {
-            setAvailable(e.target.value);
-          }}
-        >
-          {availableOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+      <div className="">
+        <div className="flex flex-row items-center justify-center">
+          <input
+            className="p-2 m-2 border border-black w-1/4 rounded-md"
+            type="text"
+            value={search}
+            placeholder="search"
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+          ></input>
+          <select
+            className="p-2 m-2 border border-black rounded-md"
+            value={gender}
+            onChange={(e) => {
+              setGender(e.target.value);
+            }}
+          >
+            <option value="All">All Genders</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+          <select
+            className="p-2 m-2 border border-black rounded-md"
+            value={domain}
+            onChange={(e) => {
+              setDomain(e.target.value);
+            }}
+          >
+            <option value="All">All Domains</option>
+            {domains.map((domain) => (
+              <option key={domain} value={domain}>
+                {domain}
+              </option>
+            ))}
+          </select>
+          <select
+            className="p-2 m-2 border border-black rounded-md"
+            value={available}
+            onChange={(e) => {
+              setAvailable(e.target.value);
+            }}
+          >
+            {availableOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <div className="flex md:flex-row flex-wrap items-center justify-center flex-col gap-2">
         {records.map((items) => {
