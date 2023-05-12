@@ -22,36 +22,35 @@ const EmployeeCardContainer = () => {
   const recordsPerPage = 20;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = mockData.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(mockData.length / recordsPerPage);
+  const filteredData = mockData.filter((emp) => {
+    const isMatchingSearch =
+      emp.first_name.toLowerCase().includes(search.toLowerCase()) ||
+      emp.last_name.toLowerCase().includes(search.toLowerCase()) ||
+      emp.domain.toLowerCase().includes(search.toLowerCase());
+
+    const isMatchingGender = gender === "All" || emp.gender === gender;
+    const isMatchingDomain = domain === "All" || emp.domain === domain;
+    const isMatchingAvailable =
+      available === "All" ||
+      (available === "Yes" && emp.available) ||
+      (available === "No" && !emp.available);
+
+    return (
+      isMatchingSearch &&
+      isMatchingGender &&
+      isMatchingDomain &&
+      isMatchingAvailable
+    );
+  });
+  const records = filteredData.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(filteredData.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
   useEffect(() => {
-    const newData = tempMockData.filter((emp) => {
-      const isMatchingSearch =
-        emp.first_name.toLowerCase().includes(search.toLowerCase()) ||
-        emp.last_name.toLowerCase().includes(search.toLowerCase()) ||
-        emp.domain.toLowerCase().includes(search.toLowerCase());
-
-      const isMatchingGender = gender === "All" || emp.gender === gender;
-      const isMatchingDomain = domain === "All" || emp.domain === domain;
-      const isMatchingAvailable =
-        available === "All" ||
-        (available === "Yes" && emp.available) ||
-        (available === "No" && !emp.available);
-
-      return (
-        isMatchingSearch &&
-        isMatchingGender &&
-        isMatchingDomain &&
-        isMatchingAvailable
-      );
-    });
-    setData(newData);
-  }, [search, gender, domain, available]);
+    setData(filteredData.slice(firstIndex, lastIndex));
+  }, [search, gender, domain, available, firstIndex, lastIndex]);
 
   const domains = [...new Set(tempMockData.map((emp) => emp.domain))];
   const availableOptions = ["All", "Yes", "No"];
-
   return (
     <div>
       <div className="flex flex-row items-center justify-center">
